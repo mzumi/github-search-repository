@@ -1,0 +1,9 @@
+[package]
+name = "github-search-repository"
+version = "0.1.0"
+authors = ["mzumi <masazumi.m@gmail.com>"]
+
+[dependencies]
+rustc-serialize = "*"
+reqwest = "*"
+

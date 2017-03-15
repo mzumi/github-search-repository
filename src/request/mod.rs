@@ -61,9 +61,7 @@ impl GitHubRequest for SearchRepositories {
     }
 
     fn parameters(&self) -> HashMap<String, &String> {
-        let mut h = HashMap::new();
-        h.insert("q".to_owned(), &self.keyword);
-        h
+        [("q".to_owned(), &self.keyword)].iter().cloned().collect()
     }
 
 
@@ -94,9 +92,7 @@ impl GitHubRequest for SearchUsers {
     }
 
     fn parameters(&self) -> HashMap<String, &String> {
-        let mut h = HashMap::new();
-        h.insert("q".to_owned(), &self.keyword);
-        h
+        [("q".to_owned(), &self.keyword)].iter().cloned().collect()
     }
 
     fn response(&self, buf: &String) -> Result<SearchResponse<Self::I>, GitHubClientError> {

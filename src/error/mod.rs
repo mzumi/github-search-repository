@@ -7,7 +7,7 @@ use std::fmt;
 #[derive(Debug)]
 pub enum GitHubClientError {
     ResponseParseError(json::DecoderError),
-    ConnectionError(reqwest::Error)
+    ConnectionError(reqwest::Error),
 }
 
 impl fmt::Display for GitHubClientError {

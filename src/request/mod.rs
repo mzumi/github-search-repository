@@ -8,7 +8,7 @@ pub enum HTTPMethod {
     GET,
     POST,
     PUT,
-    DELETE
+    DELETE,
 }
 
 pub trait GitHubRequest {
@@ -24,23 +24,29 @@ pub trait GitHubRequest {
 
     fn build_request(&self) -> String {
         let params = match self.method() {
-            HTTPMethod::GET => Some(self.parameters().iter().map(|(key, value)| format!("{}={}", key, value)).collect::<Vec<String>>()),
+            HTTPMethod::GET => {
+                Some(self.parameters()
+                    .iter()
+                    .map(|(key, value)| format!("{}={}", key, value))
+                    .collect::<Vec<String>>())
+            }
             _ => None,
         };
 
-        format!("{}{}?{}", self.base_url(), self.path(), params.map_or("".to_owned(), |p| p.join("&")))
+        format!("{}{}?{}",
+                self.base_url(),
+                self.path(),
+                params.map_or("".to_owned(), |p| p.join("&")))
     }
 }
 
 pub struct SearchRepositories {
-    keyword: String
+    keyword: String,
 }
 
 impl SearchRepositories {
     pub fn new(keyword: String) -> SearchRepositories {
-        SearchRepositories {
-            keyword: keyword
-        }
+        SearchRepositories { keyword: keyword }
     }
 }
 
@@ -69,14 +75,12 @@ impl GitHubRequest for SearchRepositories {
 
 
 pub struct SearchUsers {
-    keyword: String
+    keyword: String,
 }
 
 impl SearchUsers {
     pub fn new(keyword: String) -> SearchUsers {
-        SearchUsers {
-            keyword: keyword
-        }
+        SearchUsers { keyword: keyword }
     }
 }
 

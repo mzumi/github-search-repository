@@ -19,7 +19,10 @@ impl GitHubClient {
         GitHubClient {}
     }
 
-    pub fn send<I: Item, R: GitHubRequest<I=I>>(&self, request: &R) -> Result<SearchResponse<I>, GitHubClientError>{
+    pub fn send<I: Item, R: GitHubRequest<I = I>>
+        (&self,
+         request: &R)
+         -> Result<SearchResponse<I>, GitHubClientError> {
         let mut response = reqwest::get(request.build_request().as_str())?;
         let mut buf = String::new();
         response.read_to_string(&mut buf).expect("Failed to read response");

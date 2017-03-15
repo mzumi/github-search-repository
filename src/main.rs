@@ -14,18 +14,19 @@ fn main() {
 
     let mut keyword = String::new();
 
-    io::stdin().read_line(&mut keyword)
+    io::stdin()
+        .read_line(&mut keyword)
         .expect("Failed to read line");
 
-   let request = SearchRepositories::new(keyword);
+    let request = SearchRepositories::new(keyword);
     let client = GitHubClient::new();
     match client.send(&request) {
         Ok(repo) => {
             for i in repo.items {
                 println!("{}/{}", i.owner.login, i.name);
             }
-        },
-       Err(GitHubClientError::ResponseParseError(err)) => println!("{}", err.description()),
-       Err(GitHubClientError::ConnectionError(err)) => println!("{}", err.description()),
+        }
+        Err(GitHubClientError::ResponseParseError(err)) => println!("{}", err.description()),
+        Err(GitHubClientError::ConnectionError(err)) => println!("{}", err.description()),
     }
 }

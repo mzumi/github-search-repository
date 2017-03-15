@@ -68,8 +68,7 @@ impl GitHubRequest for SearchRepositories {
 
 
     fn response(&self, buf: &String) -> Result<SearchResponse<Self::I>, GitHubClientError> {
-        let result = json::decode(&buf)?;
-        Ok(result)
+        json::decode(&buf).map_err(|e| From::from(e))
     }
 }
 
@@ -101,7 +100,6 @@ impl GitHubRequest for SearchUsers {
     }
 
     fn response(&self, buf: &String) -> Result<SearchResponse<Self::I>, GitHubClientError> {
-        let result = json::decode(&buf)?;
-        Ok(result)
+        json::decode(&buf).map_err(|e| From::from(e))
     }
 }
